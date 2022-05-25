@@ -45,10 +45,10 @@ A call using the defaults (5mm smoothing, including temporal derivatives with a 
 
 ```
 > ./run_btf.py \
-/Users/jeanettemumford/Dropbox/Research/Projects/Fsf_converter/Data/ds003 \
-/Users/jeanettemumford/Dropbox/Research/Projects/Fsf_converter/Data/ds003_fmriprep \
-/Users/jeanettemumford/Dropbox/Research/Projects/Fsf_converter/Data/fsl_files \
-/Users/jeanettemumford/Dropbox/Research/Projects/Fsf_converter/Data/ds003/dbcache \
-/Users/jeanettemumford/Dropbox/Research/Projects/Fsf_converter/Data/model-ds0003_age_smdl.json
+/Users/jeanettemumford/Projects/Data/ds003 \
+/Users/jeanettemumford/Projects/Data/ds003_fmriprep \
+/Users/jeanettemumford//Projects/Data/fsl_files \
+/Users/jeanettemumford//Projects/Data/ds003/dbcache \
+/Users/jeanettemumford/Projects/Data/model-ds0003_age_smdl.json
 ```
 

@@ -1,0 +1,104 @@
+{
+    "Name": "ds003_model001",
+    "BIDSModelVersion": "1.0.0",
+    "Description": "",
+    "Input": {
+        "task": "rhymejudgment",
+        "desc": "preproc",
+        "space": "MNI152NLin2009cAsym",
+        "subject": [
+            "01",
+            "02",
+            "03"
+        ]
+    },
+    "Nodes": [
+        {
+            "Level": "run",
+            "Name": "subject",
+            "GroupBy": [
+                "subject"
+            ],
+            "Transformations": {
+                "Transformer": "pybids-transforms-v1",
+                "Instructions": [
+                    {
+                        "Name": "Factor",
+                        "Input": [
+                            "trial_type"
+                        ]
+                    },
+                    {
+                        "Name": "Convolve",
+                        "Input": [
+                            "trial_type.word",
+                            "trial_type.pseudoword"
+                        ],
+                        "Model": "spm"
+                    }
+                ]
+            },
+            "Model": {
+                "X": [
+                    "trial_type.word",
+                    "trial_type.pseudoword",
+                    "framewise_displacement"
+                ],
+                "Options": {
+                    "HighPassFilterCutoffHz": 0.01
+                }
+            },
+            "Contrasts": [
+                {
+                    "Name": "word_gt_pseudo",
+                    "ConditionList": [
+                        "trial_type.word",
+                        "trial_type.pseudoword"
+                    ],
+                    "Weights": [
+                        1,
+                        -1
+                    ],
+                    "Test": "t"
+                }
+            ]
+        },
+        {
+            "Level": "dataset",
+            "Name": "t-test",
+            "GroupBy": [
+                "contrast"
+            ],
+            "Transformations": {
+                "Transformer": "pybids-transforms-v1",
+                "Instructions": [
+                    {
+                        "Name": "Demean",
+                        "Input": [
+                            "age"
+                        ],
+                        "Output": [
+                            "age_dm"
+                        ]
+                    }
+                ]
+            },
+            "Model": {
+                "X": [
+                    "age_dm",
+                    1
+                ],
+                "Type": "glm"
+            },
+            "DummyContrasts": {
+                "Test": "t"
+            }
+        }
+    ],
+    "Edges": [
+        {
+            "Source": "subject",
+            "Destination": "t-test"
+        }
+    ]
+}
